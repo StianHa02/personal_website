@@ -40,7 +40,7 @@ function Hero() {
                     </div>
 
                     <Intergenerational
-                        className="text-center text-[40px] md:text-5xl lg:text-6xl"
+                        className="text-center text-[40px] md:text-5xl lg:text-6xl mb-8"
                         words="Stian's Personal Website and Portfolio"
                     />
 
@@ -49,6 +49,7 @@ function Hero() {
                             title="Learn More About Me"
                             icon={<FaAddressCard />}
                             position="right"
+
                         />
                     </a>
                 </div>

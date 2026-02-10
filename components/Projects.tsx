@@ -22,21 +22,21 @@ export default function Projects() {
         {
             title: "Personal Portfolio Website",
             description: "Modern, interactive portfolio featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js and TypeScript.",
-            techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+            techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
             category: "frontend",
             featured: true,
             githubUrl: "https://github.com/StianHa02/personal_website",
             demoUrl: "https://yourportfolio.com",
-            imageUrl: "/images/projects/portfolio.png", // Add your image to public/images/projects/
+            imageUrl: "/images/projects/portfolio.png",
         },
         {
             title: "Climbing Club Website",
             description: "Website for a local climbing club featuring member management, event calendar, and route information. Clean, responsive design for the climbing community.",
-            techStack: ["Next.js", "React", "Tailwind CSS"],
+            techStack: ["Next.js", "React", "Tailwind CSS", "Supabase", "Linear", "React Aria"],
             category: "fullstack",
             featured: true,
             demoUrl: "https://ute.bergenklatreklubb.no/",
-            imageUrl: "/images/projects/bergenklatreklubb.png", // Add your image
+            imageUrl: "/images/projects/bergenklatreklubb.png",
         },
         {
             title: "Face Blur Privacy Tool",
@@ -70,7 +70,7 @@ export default function Projects() {
                         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                             My Projects
                         </h1>
-                        <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+                        <p className="text-base text-white dark:text-gray-300 max-w-2xl mx-auto mb-6">
                             Web applications showcasing frontend and fullstack development
                         </p>
 
@@ -87,7 +87,7 @@ export default function Projects() {
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                                         filter === btn.value
                                             ? "bg-blue-600 text-white shadow-lg scale-105"
-                                            : "bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-300"
+                                            : "bg-gray-800 text-gray-200 hover:bg-gray-700 border-2 border-gray-600"
                                     }`}
                                 >
                                     {btn.label}
@@ -123,15 +123,15 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
     return (
         <BentoBox
             title={project.title}
-            className={`bg-white shadow-md hover:shadow-xl transition-shadow ${
+            className={`bg-gray-900/90 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow border border-gray-700 ${
                 featured ? "border-2 border-blue-500" : ""
             }`}
         >
             {/* Project Image */}
             <div className={`w-full h-36 rounded-lg mb-3 flex items-center justify-center overflow-hidden ${
                 isComingSoon
-                    ? "bg-linear-to-br from-gray-200 to-gray-300"
-                    : "bg-linear-to-br from-blue-100 to-purple-100"
+                    ? "bg-linear-to-br from-gray-700 to-gray-800"
+                    : "bg-linear-to-br from-blue-900/50 to-purple-900/50"
             }`}>
                 {hasImage ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -141,14 +141,14 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
                         className="w-full h-full object-cover"
                     />
                 ) : (
-                    <span className="text-gray-500 text-sm font-medium">
+                    <span className="text-gray-400 text-sm font-medium">
                         {isComingSoon ? "🚧 Coming Soon" : "Project Screenshot"}
                     </span>
                 )}
             </div>
 
             {/* Description */}
-            <p className="text-gray-700 text-sm mb-3 leading-relaxed">
+            <p className="text-gray-200 text-sm mb-3 leading-relaxed">
                 {project.description}
             </p>
 
@@ -157,7 +157,7 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
                 {project.techStack.map((tech, idx) => (
                     <span
                         key={idx}
-                        className="px-2 py-1 bg-blue-50 text-blue-700 rounded-md text-xs font-medium border border-blue-200"
+                        className="px-2 py-1 bg-blue-900/50 text-blue-300 rounded-md text-xs font-medium border border-blue-700"
                     >
                         {tech}
                     </span>
@@ -182,14 +182,14 @@ function ProjectCard({ project, featured = false }: { project: Project; featured
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-900 transition-colors text-xs"
+                        className="flex items-center gap-1.5 px-3 py-2 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors text-xs"
                     >
                         <FaGithub className="text-xs" />
                         Code
                     </a>
                 )}
                 {isComingSoon && (
-                    <div className="flex items-center gap-1.5 px-3 py-2 bg-gray-200 text-gray-600 rounded-lg font-medium text-xs cursor-not-allowed">
+                    <div className="flex items-center gap-1.5 px-3 py-2 bg-gray-700 text-gray-300 rounded-lg font-medium text-xs cursor-not-allowed">
                         <span>🚧 In Development</span>
                     </div>
                 )}

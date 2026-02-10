@@ -66,13 +66,13 @@ export default function Skills() {
     const getLevelColor = (level?: string) => {
         switch (level) {
             case "Expert":
-                return "bg-green-100 text-green-800 border-green-300";
+                return "bg-green-900/50 text-green-300 border-green-700";
             case "Proficient":
-                return "bg-blue-100 text-blue-800 border-blue-300";
+                return "bg-blue-900/50 text-blue-300 border-blue-700";
             case "Learning":
-                return "bg-yellow-100 text-yellow-800 border-yellow-300";
+                return "bg-yellow-900/50 text-yellow-300 border-yellow-700";
             default:
-                return "bg-gray-100 text-gray-800 border-gray-300";
+                return "bg-gray-800 text-gray-300 border-gray-600";
         }
     };
 
@@ -110,7 +110,7 @@ export default function Skills() {
                                         <span>{category.title}</span>
                                     </div>
                                 }
-                                className="bg-white shadow-md"
+                                className="bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700"
                             >
                                 <div className="flex flex-wrap gap-2">
                                     {category.skills.map((skill, skillIdx) => (
@@ -134,27 +134,27 @@ export default function Skills() {
                     </div>
 
                     {/* Legend */}
-                    <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-md max-w-3xl mx-auto">
-                        <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white mb-3">
+                    <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg max-w-3xl mx-auto border border-gray-700">
+                        <h3 className="text-base md:text-lg font-bold text-white mb-3">
                             Proficiency Levels
                         </h3>
                         <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded bg-green-500"></div>
-                                <span className="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong>Expert</strong> - Daily use, deep understanding
+                                <span className="text-sm text-gray-200">
+                                    <strong className="text-white">Expert</strong> - Daily use, deep understanding
                                 </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded bg-blue-500"></div>
-                                <span className="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong>Proficient</strong> - Comfortable building projects
+                                <span className="text-sm text-gray-200">
+                                    <strong className="text-white">Proficient</strong> - Comfortable building projects
                                 </span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded bg-yellow-500"></div>
-                                <span className="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong>Learning</strong> - Actively studying
+                                <span className="text-sm text-gray-200">
+                                    <strong className="text-white">Learning</strong> - Actively studying
                                 </span>
                             </div>
                         </div>

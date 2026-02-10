@@ -131,8 +131,8 @@ export default function Footer() {
                         <div className="w-full border-t border-gray-800"></div>
                     </div>
                     <div className="relative flex justify-center">
-                        <span className="px-4 bg-gradient-to-r from-transparent via-gray-900 to-transparent">
-                            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                        <span className="px-4 bg-linear-to-r from-transparent via-gray-900 to-transparent">
+                            <div className="w-2 h-2 bg-linear-to-r from-blue-500 to-purple-500 rounded-full"></div>
                         </span>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ export default function Footer() {
                         </div>
                         <button
                             onClick={scrollToTop}
-                            className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600 hover:to-purple-600 border border-blue-500/30 hover:border-transparent rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 backdrop-blur-sm cursor-pointer:"
+                            className="group flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600 hover:to-purple-600 border border-blue-500/30 hover:border-transparent rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 backdrop-blur-sm cursor-pointer:"
                             aria-label="Back to top"
                         >
                             <FaArrowUp className="text-sm group-hover:-translate-y-1 transition-transform" />

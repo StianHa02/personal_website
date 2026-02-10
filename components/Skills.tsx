@@ -84,10 +84,10 @@ export default function Skills() {
             glow={false}
             trailLength={0}
             idleRandomCount={0}
-            className="min-h-screen"
+            className="flex-1 w-full"
             darkEffectColor="rgba(255,0,255,0.5)"
         >
-            <div className="min-h-screen bg-transparent p-4 md:p-6 py-12 md:py-16">
+            <div className="h-full w-full bg-transparent p-4 md:p-6 py-12 md:py-16 overflow-y-auto">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
                     <div className="text-center mb-8">

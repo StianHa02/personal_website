@@ -33,23 +33,23 @@ export default function Home() {
           bg-black-100
         `}
             >
-                <section id="hero" className={`h-screen w-full ${!isMobile ? "snap-start" : ""}`}>
+                <section id="hero" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
                     <Hero />
                 </section>
 
-                <section id={"projects"} className={`h-screen w-full ${!isMobile ? "snap-start" : ""}`}>
+                <section id={"projects"} className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
                     <Projects />
                 </section>
 
-                <section id="skills" className={`h-screen w-full ${!isMobile ? "snap-start" : ""}`}>
+                <section id="skills" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
                     <Skills />
                 </section>
 
-                <section id="about" className={`h-screen w-full ${!isMobile ? "snap-start" : ""}`}>
+                <section id="about" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
                     <About />
                 </section>
 
-                <section id="footer" className={`h-screen w-full ${!isMobile ? "snap-start" : ""}`}>
+                <section id="footer" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
                     <Footer />
                 </section>
             </main>

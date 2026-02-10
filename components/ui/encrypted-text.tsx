@@ -56,17 +56,23 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
+  const [isMounted, setIsMounted] = useState(false);
 
   const [revealCount, setRevealCount] = useState<number>(0);
   const animationFrameRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
   const lastFlipTimeRef = useRef<number>(0);
   const scrambleCharsRef = useRef<string[]>(
-    text ? generateGibberishPreservingSpaces(text, charset).split("") : [],
+    text ? text.split("").map(char => char === " " ? " " : "*") : [],
   );
 
+  // Set mounted state on client
   useEffect(() => {
-    if (!isInView) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView || !isMounted) return;
 
     // Reset state for a fresh animation whenever dependencies change
     const initial = text
@@ -122,7 +128,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isInView, text, revealDelayMs, charset, flipDelayMs]);
+  }, [isInView, isMounted, text, revealDelayMs, charset, flipDelayMs]);
 
   if (!text) return null;
 
@@ -132,6 +138,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
       className={cn(className)}
       aria-label={text}
       role="text"
+      suppressHydrationWarning
     >
       {/* eslint-disable-next-line react-hooks/refs */}
       {text.split("").map((char, index) => {
@@ -147,6 +154,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
           <span
             key={index}
             className={cn(isRevealed ? revealedClassName : encryptedClassName)}
+            suppressHydrationWarning
           >
             {displayChar}
           </span>

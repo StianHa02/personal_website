@@ -38,7 +38,7 @@ export const Intergenerational = ({
                     return (
                         <motion.span
                             key={word + idx}
-                            className={idx === 2 || idx === 4 ? "text-purple-300 opacity-0" : "dark:text-white text-black opacity-0"}                            style={{
+                            className={"dark:text-white text-black opacity-0"}                           style={{
                                 filter: filter ? "blur(10px)" : "none",
                             }}
                         >

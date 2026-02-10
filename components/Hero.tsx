@@ -28,10 +28,10 @@ function Hero() {
 
             {/* Content */}
             <div className="relative z-10 flex justify-center items-center h-full">
-                <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center gap-1">
-                    <div className="h-10 flex items-center justify-center w-full">
+                <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
+                    <div className="mb-2 flex items-center justify-center w-full">
                         <EncryptedText
-                            text="Embrace the Future of Web Development with Next.js and Tailwind CSS"
+                            text="Frontend & Fullstack Developer"
                             encryptedClassName="text-neutral-500"
                             revealedClassName="dark:text-purple-100 text-black"
                             revealDelayMs={50}
@@ -40,18 +40,35 @@ function Hero() {
                     </div>
 
                     <Intergenerational
-                        className="text-center text-[40px] md:text-5xl lg:text-6xl mb-8"
-                        words="Stian's Personal Website and Portfolio"
+                        className="text-center text-[40px] md:text-5xl lg:text-6xl mb-4"
+                        words="Stian Gia Huy Ha"
                     />
 
-                    <a href="#about">
-                        <HeroButton
-                            title="Learn More About Me"
-                            icon={<FaAddressCard />}
-                            position="right"
+                    <p className="text-center text-lg md:text-xl text-gray-300 dark:text-gray-400 mb-6 max-w-2xl px-4">
+                        Building modern, responsive web applications with React, Next.js, and TypeScript
+                    </p>
 
-                        />
-                    </a>
+                    {/* Tech Stack Preview */}
+                    <div className="flex flex-wrap justify-center gap-3 mb-8 px-4">
+                        {["React", "Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+                            <span
+                                key={tech}
+                                className="px-4 py-2 bg-gray-800/50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-full text-sm font-medium text-gray-200 dark:text-gray-300"
+                            >
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+
+                    <div className="flex gap-4 flex-wrap justify-center">
+                        <a href="#projects">
+                            <HeroButton
+                                title="View My Work"
+                                icon={<FaAddressCard />}
+                                position="right"
+                            />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

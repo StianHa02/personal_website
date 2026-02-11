@@ -3,19 +3,6 @@
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp, FaFileDownload, FaHeart, FaCode } from "react-icons/fa";
 
 export default function Footer() {
-    const scrollToTop = () => {
-        // Find the element that's actually scrolling
-        const main = document.querySelector('main');
-
-        // Check if main is the scroll container (desktop) or body/html is (mobile)
-        if (main && main.scrollHeight > main.clientHeight) {
-            // Main has overflow, it's the scroll container
-            main.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-            // Body/window is the scroll container
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-    };
 
     const scrollToSection = (sectionId: string) => {
         const section = document.getElementById(sectionId);

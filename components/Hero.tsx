@@ -31,7 +31,7 @@ function Hero() {
                 <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
                     <div className="mb-2 flex items-center justify-center w-full">
                         <EncryptedText
-                            text="Data Science student and an Aspiring Fullstack Developer"
+                            text="Data Science Student & Aspiring Full-Stack Developer"
                             encryptedClassName="text-neutral-500"
                             revealedClassName="dark:text-purple-100 text-black"
                             revealDelayMs={50}

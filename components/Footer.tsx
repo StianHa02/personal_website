@@ -63,7 +63,7 @@ export default function Footer() {
                             Let&apos;s build something amazing together.
                         </p>
                         <GradientButton
-                            href="placehlder"
+                            href="resume.pdf"
                             download
                             icon={<FaFileDownload className="group-hover:animate-bounce" />}
                         >

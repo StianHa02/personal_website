@@ -1,9 +1,6 @@
 import React from "react";
-import { Intergenerational } from "@/components/ui/Intergenerational";
+import { Intergenerational, EncryptedText, InteractiveGridBackground, HeroButton } from "@/components/ui";
 import { FaAddressCard } from "react-icons/fa";
-import HeroButton from "@/components/ui/heroButton";
-import { EncryptedText } from "@/components/ui/encrypted-text";
-import InteractiveGridBackground from "@/components/ui/interactive-grid-background";
 
 function Hero() {
     return (

@@ -2,10 +2,7 @@
 
 
 import { useState } from "react";
-import BentoBox from "@/components/ui/BentoBox";
-import InteractiveGridBackground from "@/components/ui/interactive-grid-background";
-import Toast from "@/components/ui/Toast";
-import HeroButton from "@/components/ui/heroButton";
+import { BentoBox, InteractiveGridBackground, Toast, HeroButton } from "@/components/ui";
 import { FaPaperPlane } from "react-icons/fa";
 
 type ToastType = "success" | "error" | "info";

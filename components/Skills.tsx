@@ -1,7 +1,6 @@
 "use client";
 
-import BentoBox from "@/components/ui/BentoBox";
-import InteractiveGridBackground from "@/components/ui/interactive-grid-background";
+import { BentoBox, InteractiveGridBackground } from "@/components/ui";
 
 interface Skill {
     name: string;

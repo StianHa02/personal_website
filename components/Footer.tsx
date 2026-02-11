@@ -1,6 +1,14 @@
 "use client";
 
 import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp, FaFileDownload, FaHeart, FaCode } from "react-icons/fa";
+import {
+    SocialIconLink,
+    SectionHeader,
+    NavigationLink,
+    TechBadge,
+    GradientButton,
+    DecorativeDivider
+} from "./ui";
 
 export default function Footer() {
 
@@ -54,22 +62,18 @@ export default function Footer() {
                             Crafting modern, responsive web experiences with clean code and innovative solutions.
                             Let&apos;s build something amazing together.
                         </p>
-                        <a
+                        <GradientButton
                             href="placehlder"
                             download
-                            className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl font-semibold text-sm transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50 group"
+                            icon={<FaFileDownload className="group-hover:animate-bounce" />}
                         >
-                            <FaFileDownload className="group-hover:animate-bounce" />
                             Download Resume
-                        </a>
+                        </GradientButton>
                     </div>
 
                     {/* Quick Links */}
                     <div className="space-y-6">
-                        <h4 className="text-xl font-bold mb-6 flex items-center gap-2">
-                            <span className="w-1 h-6 bg-linear-to-b from-blue-500 to-purple-500 rounded-full"></span>
-                            Quick Navigation
-                        </h4>
+                        <SectionHeader title="Quick Navigation" />
                         <ul className="space-y-4">
                             {[
                                 { id: "hero", label: "Home" },
@@ -78,15 +82,10 @@ export default function Footer() {
                                 { id: "skills", label: "Skills" }
                             ].map((link) => (
                                 <li key={link.id}>
-                                    <button
+                                    <NavigationLink
+                                        label={link.label}
                                         onClick={() => scrollToSection(link.id)}
-                                        className="group flex items-center gap-3 text-gray-300 hover:text-white transition-all cursor-pointer"
-                                    >
-                                        <span className="w-0 group-hover:w-8 h-px bg-linear-to-r from-blue-400 to-purple-400 transition-all duration-300"></span>
-                                        <span className="group-hover:translate-x-2 transition-transform duration-300">
-                                            {link.label}
-                                        </span>
-                                    </button>
+                                    />
                                 </li>
                             ))}
                         </ul>
@@ -94,54 +93,37 @@ export default function Footer() {
 
                     {/* Connect Section */}
                     <div className="space-y-6">
-                        <h4 className="text-xl font-bold mb-6 flex items-center gap-2">
-                            <span className="w-1 h-6 bg-linear-to-b from-purple-500 to-pink-500 rounded-full"></span>
-                            Let&apos;s Connect
-                        </h4>
+                        <SectionHeader
+                            title="Let's Connect"
+                            gradientFrom="from-purple-500"
+                            gradientTo="to-pink-500"
+                        />
                         <p className="text-gray-300 text-base leading-relaxed mb-6">
                             Open to new opportunities, collaborations, and interesting conversations.
                         </p>
                         <div className="flex gap-4">
-                            <a
+                            <SocialIconLink
                                 href="https://github.com/StianHa02"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative w-12 h-12 bg-gray-800/50 backdrop-blur-sm hover:bg-linear-to-br hover:from-blue-600 hover:to-purple-600 rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50"
-                                aria-label="GitHub"
-                            >
-                                <FaGithub className="text-2xl group-hover:scale-110 transition-transform" />
-                            </a>
-                            <a
+                                icon={<FaGithub />}
+                                label="GitHub"
+                            />
+                            <SocialIconLink
                                 href="https://www.linkedin.com/in/stian-gia-huy-ha/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative w-12 h-12 bg-gray-800/50 backdrop-blur-sm hover:bg-linear-to-br hover:from-blue-600 hover:to-purple-600 rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50"
-                                aria-label="LinkedIn"
-                            >
-                                <FaLinkedin className="text-2xl group-hover:scale-110 transition-transform" />
-                            </a>
-                            <a
+                                icon={<FaLinkedin />}
+                                label="LinkedIn"
+                            />
+                            <SocialIconLink
                                 href="mailto:StianHa02@hotmail.com"
-                                className="group relative w-12 h-12 bg-gray-800/50 backdrop-blur-sm hover:bg-linear-to-br hover:from-blue-600 hover:to-purple-600 rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50"
-                                aria-label="Email"
-                            >
-                                <FaEnvelope className="text-2xl group-hover:scale-110 transition-transform" />
-                            </a>
+                                icon={<FaEnvelope />}
+                                label="Email"
+                                external={false}
+                            />
                         </div>
                     </div>
                 </div>
 
                 {/* Decorative Divider */}
-                <div className="relative my-12">
-                    <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-800"></div>
-                    </div>
-                    <div className="relative flex justify-center">
-                        <span className="px-4 bg-linear-to-r from-transparent via-gray-900 to-transparent">
-                            <div className="w-2 h-2 bg-linear-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                        </span>
-                    </div>
-                </div>
+                <DecorativeDivider />
 
                 {/* Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -155,18 +137,18 @@ export default function Footer() {
 
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2 text-gray-400 text-xs">
-                            <span className="px-3 py-1 bg-gray-800/50 rounded-full backdrop-blur-sm">Next.js</span>
-                            <span className="px-3 py-1 bg-gray-800/50 rounded-full backdrop-blur-sm">React</span>
-                            <span className="px-3 py-1 bg-gray-800/50 rounded-full backdrop-blur-sm">Tailwind</span>
+                            <TechBadge name="Next.js" />
+                            <TechBadge name="React" />
+                            <TechBadge name="Tailwind" />
                         </div>
-                        <button
+                        <GradientButton
                             onClick={() => scrollToSection("hero")}
-                            className="group flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600 hover:to-purple-600 border border-blue-500/30 hover:border-transparent rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 backdrop-blur-sm cursor-pointer"
-                            aria-label="Back to top"
+                            variant="outline"
+                            icon={<FaArrowUp className="text-sm group-hover:-translate-y-1 transition-transform" />}
+                            className="cursor-pointer"
                         >
-                            <FaArrowUp className="text-sm group-hover:-translate-y-1 transition-transform" />
                             Back to Top
-                        </button>
+                        </GradientButton>
                     </div>
                 </div>
             </div>

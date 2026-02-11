@@ -4,21 +4,40 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaArrowUp, FaFileDownload, FaHeart, F
 
 export default function Footer() {
     const scrollToTop = () => {
+        // Find the element that's actually scrolling
         const main = document.querySelector('main');
-        if (main) {
+
+        // Check if main is the scroll container (desktop) or body/html is (mobile)
+        if (main && main.scrollHeight > main.clientHeight) {
+            // Main has overflow, it's the scroll container
             main.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+            // Body/window is the scroll container
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
 
     const scrollToSection = (sectionId: string) => {
         const section = document.getElementById(sectionId);
-        if (section) {
+        if (!section) return;
+
+        const main = document.querySelector('main');
+
+        // Check if main is the scroll container
+        if (main && main.scrollHeight > main.clientHeight) {
+            // Main is scrolling (desktop)
+            const mainRect = main.getBoundingClientRect();
+            const sectionRect = section.getBoundingClientRect();
+            const scrollTop = main.scrollTop + (sectionRect.top - mainRect.top);
+            main.scrollTo({ top: scrollTop, behavior: "smooth" });
+        } else {
+            // Window is scrolling (mobile)
             section.scrollIntoView({ behavior: "smooth" });
         }
     };
 
     return (
-        <footer className="relative h-full w-full bg-linear-to-br from-black via-gray-900 to-black text-white overflow-hidden">
+        <footer className="relative w-full min-h-screen lg:h-full bg-linear-to-br from-black via-gray-900 to-black text-white overflow-hidden">
             {/* Animated gradient background */}
             <div className="absolute inset-0 bg-linear-to-br from-blue-900/10 via-purple-900/10 to-pink-900/10 animate-pulse"></div>
 
@@ -28,7 +47,7 @@ export default function Footer() {
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
 
             {/* Content Container */}
-            <div className="relative z-10 h-full flex flex-col justify-center max-w-7xl mx-auto px-6 py-16">
+            <div className="relative z-10 min-h-screen lg:h-full flex flex-col justify-center max-w-7xl mx-auto px-6 py-16">
 
                 {/* Main Footer Content */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -154,7 +173,7 @@ export default function Footer() {
                             <span className="px-3 py-1 bg-gray-800/50 rounded-full backdrop-blur-sm">Tailwind</span>
                         </div>
                         <button
-                            onClick={scrollToTop}
+                            onClick={() => scrollToSection("hero")}
                             className="group flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600 hover:to-purple-600 border border-blue-500/30 hover:border-transparent rounded-xl text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 backdrop-blur-sm cursor-pointer"
                             aria-label="Back to top"
                         >

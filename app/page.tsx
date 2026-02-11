@@ -3,7 +3,6 @@
 import Hero from "@/components/Hero";
 import TimelineNav from "@/components/ui/TimelineNav";
 import About from "@/components/About";
-import { useIsMobile } from "@/hooks/use-mobile";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Footer from "@/components/Footer";
@@ -17,39 +16,29 @@ const sections = [
 ];
 
 export default function Home() {
-    const isMobile = useIsMobile();
-
     return (
         <div className="relative">
             <TimelineNav sections={sections} />
 
-            <main
-                className={`
-          h-screen
-          overflow-y-scroll
-          overflow-x-hidden
-          ${!isMobile ? "snap-y snap-mandatory" : ""}
-          scroll-smooth
-          bg-black-100
-        `}
-            >
-                <section id="hero" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
+            {/* Use CSS media queries with lg: breakpoint (1024px) instead of JS hook */}
+            <main className="bg-black-100 scroll-smooth lg:h-screen lg:overflow-y-scroll lg:overflow-x-hidden lg:snap-y lg:snap-mandatory">
+                <section id="hero" className="w-full min-h-screen lg:h-screen lg:snap-start">
                     <Hero />
                 </section>
 
-                <section id={"projects"} className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
+                <section id="projects" className="w-full lg:h-screen lg:snap-start">
                     <Projects />
                 </section>
 
-                <section id="skills" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
+                <section id="skills" className="w-full lg:h-screen lg:snap-start">
                     <Skills />
                 </section>
 
-                <section id="about" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
+                <section id="about" className="w-full lg:h-screen lg:snap-start">
                     <About />
                 </section>
 
-                <section id="footer" className={`w-full ${isMobile ? "min-h-screen flex flex-col" : "h-screen snap-start"}`}>
+                <section id="footer" className="w-full lg:h-screen lg:snap-start">
                     <Footer />
                 </section>
             </main>

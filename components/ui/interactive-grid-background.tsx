@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export interface InteractiveGridBackgroundProps
-  extends React.HTMLProps<HTMLDivElement> {
+    extends React.HTMLProps<HTMLDivElement> {
   gridSize?: number;
   gridColor?: string;
   darkGridColor?: string;
@@ -22,24 +22,24 @@ export interface InteractiveGridBackgroundProps
 }
 
 const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
-  gridSize = 50,
-  gridColor = "#e5e7eb",
-  darkGridColor = "#27272a",
-  effectColor = "rgba(0, 0, 0, 0.5)",
-  darkEffectColor = "rgba(255, 255, 255, 0.5)",
-  trailLength = 3,
-  width,
-  height,
-  idleSpeed = 0.2,
-  glow = true,
-  glowRadius = 20,
-  children,
-  showFade = true,
-  fadeIntensity = 20,
-  idleRandomCount = 5,
-  className,
-  ...props
-}) => {
+                                                                               gridSize = 50,
+                                                                               gridColor = "#e5e7eb",
+                                                                               darkGridColor = "#27272a",
+                                                                               effectColor = "rgba(0, 0, 0, 0.5)",
+                                                                               darkEffectColor = "rgba(255, 255, 255, 0.5)",
+                                                                               trailLength = 3,
+                                                                               width,
+                                                                               height,
+                                                                               idleSpeed = 0.2,
+                                                                               glow = true,
+                                                                               glowRadius = 20,
+                                                                               children,
+                                                                               showFade = true,
+                                                                               fadeIntensity = 20,
+                                                                               idleRandomCount = 5,
+                                                                               className,
+                                                                               ...props
+                                                                             }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -59,10 +59,10 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
   useEffect(() => {
     const updateDarkMode = () => {
       const prefersDark =
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
       setIsDarkMode(
-        document.documentElement.classList.contains("dark") || prefersDark
+          document.documentElement.classList.contains("dark") || prefersDark
       );
     };
     updateDarkMode();
@@ -213,28 +213,28 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
   ]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative ${className}`}
-      style={{ width: width || "100%", height: height || "100vh" }}
-      {...props}
-    >
-      <canvas
-        ref={canvasRef}
-        className="absolute top-0 left-0 z-0 pointer-events-none"
-      />
-
-      {showFade && (
-        <div
-          className="pointer-events-none absolute inset-0 bg-white dark:bg-black"
-          style={{
-            maskImage: `radial-gradient(ellipse at center, transparent ${fadeIntensity}%, black)`,
-            WebkitMaskImage: `radial-gradient(ellipse at center, transparent ${fadeIntensity}%, black)`,
-          }}
+      <div
+          ref={containerRef}
+          className={`relative ${className}`}
+          style={{ width: width || "100%", height: height || "100vh" }}
+          {...props}
+      >
+        <canvas
+            ref={canvasRef}
+            className="absolute top-0 left-0 z-0 pointer-events-none"
         />
-      )}
-      <div className="relative z-0 w-full h-full">{children}</div>
-    </div>
+
+        {showFade && (
+            <div
+                className="pointer-events-none absolute inset-0 bg-white dark:bg-black"
+                style={{
+                  maskImage: `radial-gradient(ellipse at center, transparent ${fadeIntensity}%, black)`,
+                  WebkitMaskImage: `radial-gradient(ellipse at center, transparent ${fadeIntensity}%, black)`,
+                }}
+            />
+        )}
+        <div className="relative z-0 w-full h-full">{children}</div>
+      </div>
   );
 };
 

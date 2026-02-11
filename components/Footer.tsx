@@ -49,7 +49,7 @@ export default function Footer() {
                             Let&apos;s build something amazing together.
                         </p>
                         <a
-                            href="/resume.pdf"
+                            href="placehlder"
                             download
                             className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl font-semibold text-sm transition-all hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/50 group"
                         >

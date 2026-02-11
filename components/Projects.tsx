@@ -60,10 +60,10 @@ export default function Projects() {
             glow={false}
             trailLength={0}
             idleRandomCount={0}
-            className="flex-1 w-full"
+            className="w-full min-h-screen lg:h-full"
             darkEffectColor="rgba(255,0,255,0.5)"
         >
-            <div className="h-full w-full bg-transparent p-4 md:p-6 py-12 md:py-16 overflow-y-auto">
+            <div className="w-full bg-transparent p-4 md:p-6 py-12 md:py-16 min-h-screen lg:min-h-0">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
                     <div className="text-center mb-8">

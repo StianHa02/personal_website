@@ -103,14 +103,37 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
   // Drawing logic
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const canvasWidth = width || window.innerWidth;
-    const canvasHeight = height || window.innerHeight;
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
+    let animationFrameId: number;
+
+    const updateCanvasSize = () => {
+      const rect = container.getBoundingClientRect();
+      const canvasWidth = width || rect.width;
+      const canvasHeight = height || rect.height;
+
+      // Only update if size actually changed
+      if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+      }
+
+      return { canvasWidth, canvasHeight };
+    };
+
+    let { canvasWidth, canvasHeight } = updateCanvasSize();
+
+    // Watch for container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      const newSize = updateCanvasSize();
+      canvasWidth = newSize.canvasWidth;
+      canvasHeight = newSize.canvasHeight;
+    });
+
+    resizeObserver.observe(container);
 
     const cols = Math.floor(canvasWidth / gridSize);
     const rows = Math.floor(canvasHeight / gridSize);
@@ -192,10 +215,17 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
         ctx.fillRect(cell.x * gridSize, cell.y * gridSize, gridSize, gridSize);
       });
 
-      requestAnimationFrame(draw);
+      animationFrameId = requestAnimationFrame(draw);
     };
 
     draw();
+
+    return () => {
+      resizeObserver.disconnect();
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [
     gridSize,
     width,
@@ -216,12 +246,12 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
       <div
           ref={containerRef}
           className={`relative ${className}`}
-          style={{ width: width || "100%", height: height || "100vh" }}
+          style={{ width: width || "100%" }}
           {...props}
       >
         <canvas
             ref={canvasRef}
-            className="absolute top-0 left-0 z-0 pointer-events-none"
+            className="absolute top-0 left-0 z-0 pointer-events-none w-full h-full"
         />
 
         {showFade && (

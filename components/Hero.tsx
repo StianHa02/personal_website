@@ -42,7 +42,7 @@ function Hero() {
                     />
 
                     <p className="text-center text-lg md:text-xl text-gray-300 dark:text-gray-400 mb-6 max-w-2xl px-4">
-                        Building modern, responsive web applications with React, Next.js, and TypeScript
+                        Building clean, performant web applications with a focus on usability and structure.
                     </p>
 
                     {/* Tech Stack Preview */}

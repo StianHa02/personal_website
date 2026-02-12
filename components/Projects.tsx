@@ -25,7 +25,7 @@ export default function Projects() {
             category: "frontend",
             featured: true,
             githubUrl: "https://github.com/StianHa02/personal_website",
-            demoUrl: "https://yourportfolio.com",
+            demoUrl: "https://stianha.com",
             imageUrl: "/images/projects/portfolio.png",
         },
         {

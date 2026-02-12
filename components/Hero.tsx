@@ -47,7 +47,7 @@ function Hero() {
 
                     {/* Tech Stack Preview */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8 px-4">
-                        {["React", "Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+                        {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
                             <span
                                 key={tech}
                                 className="px-4 py-2 bg-gray-800/50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-full text-sm font-medium text-gray-200 dark:text-gray-300"

@@ -140,7 +140,6 @@ export default function Footer() {
                             <TechBadge name="Next.js" />
                             <TechBadge name="Typescript" />
                             <TechBadge name="Tailwind" />
-                            <TechBadge name="Vercel" />
                         </div>
                         <GradientButton
                             onClick={() => scrollToSection("hero")}

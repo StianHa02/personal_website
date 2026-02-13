@@ -42,8 +42,8 @@ export default function Projects() {
             description: "Privacy-focused application using OpenCV for automatic face detection and blurring. Python Flask backend with Next.js frontend for real-time image processing.",
             techStack: ["Python", "Flask", "OpenCV", "Next.js", "Computer Vision"],
             category: "fullstack",
-            githubUrl: "https://github.com/yourusername/face-blur",
-            imageUrl: "Coming Soon",
+            githubUrl: "https://github.com/StianHa02/BlurThatGuyProject",
+            imageUrl: "/images/projects/blurthatguy.png",
         },
     ];
 

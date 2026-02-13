@@ -5,7 +5,6 @@ import {
     SocialIconLink,
     SectionHeader,
     NavigationLink,
-    TechBadge,
     GradientButton,
     DecorativeDivider
 } from "./ui";
@@ -77,9 +76,9 @@ export default function Footer() {
                         <ul className="space-y-4">
                             {[
                                 { id: "hero", label: "Home" },
-                                { id: "about", label: "About" },
                                 { id: "projects", label: "Projects" },
-                                { id: "skills", label: "Skills" }
+                                { id: "skills", label: "Skills" },
+                                { id: "about", label: "About" },
                             ].map((link) => (
                                 <li key={link.id}>
                                     <NavigationLink
@@ -136,11 +135,6 @@ export default function Footer() {
                     </div>
 
                     <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2 text-gray-400 text-xs">
-                            <TechBadge name="Next.js" />
-                            <TechBadge name="Typescript" />
-                            <TechBadge name="Tailwind" />
-                        </div>
                         <GradientButton
                             onClick={() => scrollToSection("hero")}
                             variant="outline"

@@ -42,12 +42,12 @@ function Hero() {
                     />
 
                     <p className="text-center text-lg md:text-xl text-gray-300 dark:text-gray-400 mb-6 max-w-2xl px-4">
-                        Building clean, performant web applications with a focus on usability and structure.
+                        Showcasing my projects in modern web development.
                     </p>
 
                     {/* Tech Stack Preview */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8 px-4">
-                        {["Next.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+                        {["Next.js", "TypeScript", "Tailwind CSS", "Vercel"].map((tech) => (
                             <span
                                 key={tech}
                                 className="px-4 py-2 bg-gray-800/50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-full text-sm font-medium text-gray-200 dark:text-gray-300"

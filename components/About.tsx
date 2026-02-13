@@ -57,17 +57,24 @@ export default function About() {
                 <div className="w-full max-w-7xl grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
                     {/* About Bento - Spans 2 columns on larger screens */}
-                    <BentoBox title="About Me" className="bg-gray-900/90 backdrop-blur-sm shadow-lg md:col-span-2 text-white border border-gray-700 order-1">
-                        <p className="mb-3 text-base leading-relaxed text-gray-100">
-                            Hey! I&#39;m <strong className="font-bold text-white">Stian Gia Huy Ha</strong>, a passionate frontend/fullstack developer focused on building
-                            clean, modern web experiences that solve real problems.
-                        </p>
-                        <p className="mb-3 text-base leading-relaxed text-gray-100">
-                            I specialize in React, Next.js, and TypeScript, creating responsive and intuitive user interfaces.
-                        </p>
-                        <p className="text-base leading-relaxed text-gray-100">
-                            Currently seeking opportunities to contribute to innovative projects and grow as a developer.
-                        </p>
+                    <BentoBox
+                        title="About Me"
+                        className="bg-gray-900/90 backdrop-blur-sm shadow-lg md:col-span-2 text-white border border-gray-700 order-1"
+                    >
+                        <div className="space-y-4">
+                            <p className="text-lg leading-relaxed text-gray-100">
+                                Hey! I&#39;m <span className="font-semibold text-white">Stian Gia Huy Ha</span>, a developer who gets excited about turning ideas into working applications.
+                            </p>
+
+                            <p className="text-base leading-relaxed text-gray-300">
+                                I specialize in full-stack development with{' '}
+                                <span className="text-blue-400 font-medium">Next.js</span>, building user interfaces and learning to develop backend systems with Node.js and PostgreSQL.
+                            </p>
+
+                            <p className="text-base leading-relaxed text-gray-300">
+                                Currently deepening my skills in data science while looking for opportunities to collaborate on projects that make a real impact.
+                            </p>
+                        </div>
                     </BentoBox>
 
                     {/* Currently Learning */}
@@ -80,7 +87,7 @@ export default function About() {
                                 <strong className="text-white">GraphQL</strong> - API development
                             </li>
                             <li className="text-gray-100 text-sm">
-                                <strong className="text-white">Testing</strong> - Jest & RTL
+                                <strong className="text-white">AWS/Vercel</strong> - Cloud platforms & deployment
                             </li>
                         </ul>
                     </BentoBox>
@@ -89,17 +96,10 @@ export default function About() {
                     <BentoBox title="🎓 Journey" className="bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700 order-3 md:order-4">
                         <div className="space-y-3">
                             <div className="border-l-4 border-blue-500 pl-3 py-1">
-                                <h3 className="font-bold text-white text-sm">Self-Taught Developer</h3>
+                                <h3 className="font-bold text-white text-sm">Data science student @ UiB</h3>
                                 <p className="text-gray-400 text-xs mb-1">2023 - Present</p>
                                 <p className="text-gray-200 text-sm">
-                                    Focused on modern web development and fullstack applications.
-                                </p>
-                            </div>
-                            <div className="border-l-4 border-gray-500 pl-3 py-1">
-                                <h3 className="font-bold text-white text-sm">Online Learning</h3>
-                                <p className="text-gray-400 text-xs mb-1">2022 - 2023</p>
-                                <p className="text-gray-200 text-sm">
-                                    Courses in JavaScript, React, Node.js, and web fundamentals.
+                                    Integrated master&#39;s program covering machine learning, mathematics, statistics, software development, networks, and data visualization. Includes industry internship and master&#39;s thesis in data science.
                                 </p>
                             </div>
                         </div>

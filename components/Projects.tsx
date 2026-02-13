@@ -20,7 +20,7 @@ export default function Projects() {
     const projects: Project[] = [
         {
             title: "Personal Portfolio Website",
-            description: "Modern, interactive portfolio featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js and TypeScript.",
+            description: "Modern, interactive portfolio featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js, TypeScript and deployed on Vercel.",
             techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
             category: "frontend",
             featured: true,
@@ -29,8 +29,8 @@ export default function Projects() {
             imageUrl: "/images/projects/portfolio.png",
         },
         {
-            title: "Climbing Club Website",
-            description: "Website for a local climbing club featuring member management, event calendar, and route information. Clean, responsive design for the climbing community.",
+            title: "Bergen Klatreklubb Route Database",
+            description: "Maintaining and improving the digital route database for Bergen Klatreklubb through UI refinements, bug fixes, and feature updates, ensuring stable performance and responsive design.",
             techStack: ["Next.js", "React", "Tailwind CSS", "Supabase", "Linear", "React Aria"],
             category: "fullstack",
             featured: true,
@@ -39,7 +39,7 @@ export default function Projects() {
         },
         {
             title: "Face Blur Privacy Tool",
-            description: "Privacy-focused application using OpenCV for automatic face detection and blurring. Python Flask backend with Next.js frontend for real-time image processing.",
+            description: "Web application for automatic face blurring in videos using OpenCV. Built with Next.js for the frontend and a Python (Flask) backend for video processing and face detection.",
             techStack: ["Python", "Flask", "OpenCV", "Next.js", "Computer Vision"],
             category: "fullstack",
             githubUrl: "https://github.com/StianHa02/BlurThatGuyProject",

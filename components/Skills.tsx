@@ -25,39 +25,28 @@ export default function Skills() {
                 { name: "Tailwind CSS", level: "Proficient" },
                 { name: "JavaScript (ES6+)", level: "Expert" },
                 { name: "HTML5 & CSS3", level: "Expert" },
-                { name: "Responsive Design", level: "Proficient" },
+                { name: "Responsive Design", level: "Expert" },
             ],
         },
         {
             title: "Backend Development",
             icon: "⚙️",
             skills: [
-                { name: "Node.js", level: "Proficient" },
-                { name: "Express.js", level: "Proficient" },
-                { name: "REST APIs", level: "Proficient" },
-                { name: "MongoDB", level: "Learning" },
+                { name: "REST APIs", level: "Learning" },
                 { name: "PostgreSQL", level: "Learning" },
+                { name: "Python (Flask)", level: "Proficient" },
+                { name: "Supabase", level: "Proficient" },
+                { name: "Node.js", level: "Proficient" },
             ],
         },
         {
             title: "Tools & Technologies",
             icon: "🛠️",
             skills: [
-                { name: "Git & GitHub", level: "Proficient" },
-                { name: "VS Code", level: "Expert" },
+                { name: "AWS", level: "Learning" },
                 { name: "npm/yarn", level: "Proficient" },
                 { name: "Vercel", level: "Proficient" },
-                { name: "Figma", level: "Learning" },
-            ],
-        },
-        {
-            title: "Currently Learning",
-            icon: "📚",
-            skills: [
-                { name: "Docker" },
-                { name: "GraphQL" },
-                { name: "Testing (Jest, React Testing Library)" },
-                { name: "CI/CD Pipelines" },
+                { name: "Git & GitHub", level: "Expert" },
             ],
         },
     ];
@@ -109,7 +98,11 @@ export default function Skills() {
                                         <span>{category.title}</span>
                                     </div>
                                 }
-                                className="bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700"
+                                className={`bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700 ${
+                                    idx === skillCategories.length - 1 && skillCategories.length % 2 !== 0
+                                        ? 'md:col-span-2 md:max-w-xl md:mx-auto'
+                                        : ''
+                                }`}
                             >
                                 <div className="flex flex-wrap gap-2">
                                     {category.skills.map((skill, skillIdx) => (

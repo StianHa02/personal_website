@@ -84,7 +84,7 @@ export default function About() {
                                 <strong className="text-white">Docker</strong> - Containerization
                             </li>
                             <li className="text-gray-100 text-sm">
-                                <strong className="text-white">GraphQL</strong> - API development
+                                <strong className="text-white">Fast API</strong> - API development
                             </li>
                             <li className="text-gray-100 text-sm">
                                 <strong className="text-white">AWS/Vercel</strong> - Cloud platforms & deployment

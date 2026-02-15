@@ -39,8 +39,8 @@ export default function Projects() {
         },
         {
             title: "Face Blur Privacy Tool",
-            description: "Web application for automatic face blurring in videos using OpenCV. Built with Next.js for the frontend and a Python (Flask) backend for video processing and face detection.",
-            techStack: ["Python", "Flask", "OpenCV", "Next.js", "Computer Vision"],
+            description: "Web application for automatic face blurring in videos using OpenCV. Built with Next.js for the frontend and a Python (FastAPI) backend for video processing and face detection.",
+            techStack: ["Python", "Fast API", "OpenCV", "Next.js", "Computer Vision"],
             category: "fullstack",
             githubUrl: "https://github.com/StianHa02/BlurThatGuyProject",
             imageUrl: "/images/projects/blurthatguy.png",

@@ -16,21 +16,20 @@ interface SkillCategory {
 export default function Skills() {
     const skillCategories: SkillCategory[] = [
         {
-            title: "Frontend Development",
-            icon: "🎨",
+            title: "Frontend",
             skills: [
                 { name: "React", level: "Proficient" },
                 { name: "Next.js", level: "Proficient" },
                 { name: "TypeScript", level: "Proficient" },
                 { name: "Tailwind CSS", level: "Proficient" },
-                { name: "JavaScript (ES6+)", level: "Expert" },
+                { name: "JavaScript (ES6+)", level: "Proficient" },
                 { name: "HTML5 & CSS3", level: "Expert" },
                 { name: "Responsive Design", level: "Expert" },
+
             ],
         },
         {
-            title: "Backend Development",
-            icon: "⚙️",
+            title: "Backend",
             skills: [
                 { name: "REST APIs", level: "Learning" },
                 { name: "PostgreSQL", level: "Learning" },
@@ -41,27 +40,49 @@ export default function Skills() {
         },
         {
             title: "Tools & Technologies",
-            icon: "🛠️",
             skills: [
                 { name: "AWS", level: "Learning" },
                 { name: "npm/yarn", level: "Proficient" },
                 { name: "Vercel", level: "Proficient" },
                 { name: "Git & GitHub", level: "Expert" },
+                { name: "Docker", level: "Learning" },
+                { name: "Jetbrains IDE", level: "Proficient" },
+                { name: "SEO", level: "Learning" },
+            ],
+        },
+        {
+            title: "Data Science & ML",
+            skills: [
+                { name: "NumPy", level: "Expert" },
+                { name: "Pandas", level: "Expert" },
+                { name: "Scikit-learn", level: "Proficient" },
+                { name: "Matplotlib", level: "Proficient" },
+                { name: "Jupyter", level: "Expert" },
+                { name: "PyTorch", level: "Learning" },
             ],
         },
     ];
 
-    const getLevelColor = (level?: string) => {
-        switch (level) {
-            case "Expert":
-                return "bg-green-900/50 text-green-300 border-green-700";
-            case "Proficient":
-                return "bg-blue-900/50 text-blue-300 border-blue-700";
-            case "Learning":
-                return "bg-yellow-900/50 text-yellow-300 border-yellow-700";
-            default:
-                return "bg-gray-800 text-gray-300 border-gray-600";
-        }
+    const levelConfig: Record<string, { label: string; dot: string; pill: string }> = {
+        Expert:     { label: "Expert",     dot: "bg-emerald-400", pill: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30" },
+        Proficient: { label: "Proficient", dot: "bg-blue-400",    pill: "bg-blue-500/10 text-blue-300 border-blue-500/30" },
+        Learning:   { label: "Learning",   dot: "bg-amber-400",   pill: "bg-amber-500/10 text-amber-300 border-amber-500/30" },
+    };
+
+    const levelOrder: Record<string, number> = { Expert: 0, Proficient: 1, Learning: 2 };
+
+    const sortedCategories = skillCategories.map(category => ({
+        ...category,
+        skills: [...category.skills].sort((a, b) =>
+            (levelOrder[a.level ?? "Learning"] ?? 2) - (levelOrder[b.level ?? "Learning"] ?? 2)
+        ),
+    }));
+
+    const allSkills = skillCategories.flatMap(c => c.skills);
+    const counts = {
+        Expert:     allSkills.filter(s => s.level === "Expert").length,
+        Proficient: allSkills.filter(s => s.level === "Proficient").length,
+        Learning:   allSkills.filter(s => s.level === "Learning").length,
     };
 
     return (
@@ -72,85 +93,69 @@ export default function Skills() {
             glow={false}
             trailLength={0}
             idleRandomCount={0}
-            className="w-full min-h-screen lg:h-full"
+            className="relative w-full h-full"
             darkEffectColor="rgba(255,0,255,0.5)"
         >
-            <div className="w-full bg-transparent p-4 md:p-6 py-12 md:py-16 min-h-screen lg:min-h-0">
-                <div className="max-w-7xl mx-auto">
+            <div className="relative lg:absolute lg:inset-0 flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-8 lg:overflow-y-auto">
+                <div className="w-full max-w-7xl mx-auto">
+
                     {/* Header */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                    <div className="text-center mb-10">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-2">What I work with</p>
+                        <h1 className="text-3xl md:text-4xl font-bold text-white">
                             Skills & Technologies
                         </h1>
-                        <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-                            Technical skills and technologies I work with
-                        </p>
                     </div>
 
-                    {/* Skills Grid */}
-                    <div className="grid gap-4 md:gap-6 md:grid-cols-2 mb-8">
-                        {skillCategories.map((category, idx) => (
+                    {/* Main layout — skills top, stats bottom, all stretching to fill height */}
+                    <div className="grid gap-4 md:gap-6 md:grid-cols-2 mb-4" style={{ gridAutoRows: "1fr" }}>
+                        {sortedCategories.map((category, idx) => (
                             <BentoBox
                                 key={idx}
                                 title={
                                     <div className="flex items-center gap-2">
-                                        <span className="text-xl">{category.icon}</span>
+                                        <span>{category.icon}</span>
                                         <span>{category.title}</span>
                                     </div>
                                 }
-                                className={`bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700 ${
+                                className={`border-white/10 flex flex-col justify-between ${
                                     idx === skillCategories.length - 1 && skillCategories.length % 2 !== 0
-                                        ? 'md:col-span-2 md:max-w-xl md:mx-auto'
-                                        : ''
+                                        ? "md:col-span-2"
+                                        : ""
                                 }`}
                             >
-                                <div className="flex flex-wrap gap-2">
-                                    {category.skills.map((skill, skillIdx) => (
-                                        <div
-                                            key={skillIdx}
-                                            className={`px-3 py-1.5 rounded-lg border-2 font-medium text-sm transition-all hover:scale-105 ${getLevelColor(
-                                                skill.level
-                                            )}`}
-                                        >
-                                            <span>{skill.name}</span>
-                                            {skill.level && (
-                                                <span className="ml-1.5 text-xs opacity-75">
-                                                    • {skill.level}
-                                                </span>
-                                            )}
-                                        </div>
-                                    ))}
+                                <div className="flex flex-wrap gap-2.5">
+                                    {category.skills.map((skill, skillIdx) => {
+                                        const config = skill.level ? levelConfig[skill.level] : null;
+                                        return (
+                                            <span
+                                                key={skillIdx}
+                                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-all duration-200 hover:scale-105 hover:brightness-110 ${
+                                                    config?.pill ?? "bg-white/5 text-zinc-300 border-white/10"
+                                                }`}
+                                            >
+                                                {config && (
+                                                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${levelConfig[skill.level!].dot}`} />
+                                                )}
+                                                {skill.name}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             </BentoBox>
                         ))}
                     </div>
 
                     {/* Legend */}
-                    <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg max-w-3xl mx-auto border border-gray-700">
-                        <h3 className="text-base md:text-lg font-bold text-white mb-3">
-                            Proficiency Levels
-                        </h3>
-                        <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded bg-green-500"></div>
-                                <span className="text-sm text-gray-200">
-                                    <strong className="text-white">Expert</strong> - Daily use, deep understanding
-                                </span>
+                    <div className="flex items-center justify-center gap-6 mt-4">
+                        {(["Expert", "Proficient", "Learning"] as const).map((level) => (
+                            <div key={level} className="flex items-center gap-2">
+                                <span className={`w-2 h-2 rounded-full ${levelConfig[level].dot}`} />
+                                <span className="text-xs uppercase tracking-widest text-zinc-500">{level}</span>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded bg-blue-500"></div>
-                                <span className="text-sm text-gray-200">
-                                    <strong className="text-white">Proficient</strong> - Comfortable building projects
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded bg-yellow-500"></div>
-                                <span className="text-sm text-gray-200">
-                                    <strong className="text-white">Learning</strong> - Actively studying
-                                </span>
-                            </div>
-                        </div>
+                        ))}
                     </div>
+
                 </div>
             </div>
         </InteractiveGridBackground>

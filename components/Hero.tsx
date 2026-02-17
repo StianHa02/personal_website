@@ -11,15 +11,17 @@ function Hero() {
                     gridSize={50}
                     gridColor="#000319"
                     darkGridColor="#1f2937"
-                    effectColor="rgba(0,255,255,0.5)"
-                    darkEffectColor="rgba(255,0,255,0.5)"
-                    trailLength={5}
                     glow
-                    glowRadius={10}
+                    glowRadius={4}
+                    trailLength={20}
                     showFade
                     fadeIntensity={25}
                     className="h-full w-full"
-                    idleSpeed={0.1}
+                    idleSpeed={1.5}
+                    effectColor="rgba(0, 255, 255, 0.9)"      // head color (cyan)
+                    darkEffectColor="rgba(255, 0, 255, 0.9)"   // head color in dark mode (magenta)
+                    tailColor="rgba(0, 100, 255, 0.9)"         // tail fades to this (blue)
+                    darkTailColor="rgba(100, 0, 255, 0.9)"     // tail in dark mode (purple)
                 />
             </div>
 
@@ -41,16 +43,16 @@ function Hero() {
                         words="Stian Gia Huy Ha"
                     />
 
-                    <p className="text-center text-lg md:text-xl text-gray-300 dark:text-gray-400 mb-6 max-w-2xl px-4">
+                    <p className="text-center text-base md:text-lg text-zinc-400 mb-6 max-w-2xl px-4">
                         Showcasing my projects in modern web development.
                     </p>
 
                     {/* Tech Stack Preview */}
-                    <div className="flex flex-wrap justify-center gap-3 mb-8 px-4">
+                    <div className="flex flex-wrap justify-center gap-2 mb-8 px-4">
                         {["Next.js", "TypeScript", "Tailwind CSS", "Vercel"].map((tech) => (
                             <span
                                 key={tech}
-                                className="px-4 py-2 bg-gray-800/50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-full text-sm font-medium text-gray-200 dark:text-gray-300"
+                                className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-medium text-zinc-300 hover:border-white/20 hover:text-white transition-all"
                             >
                                 {tech}
                             </span>

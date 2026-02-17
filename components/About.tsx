@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState } from "react";
 import { BentoBox, InteractiveGridBackground, Toast, HeroButton } from "@/components/ui";
 import { FaPaperPlane } from "react-icons/fa";
@@ -51,77 +50,122 @@ export default function About() {
             idleRandomCount={0}
             className="w-full min-h-screen lg:h-full"
             darkEffectColor="rgba(255,0,255,0.5)"
-
         >
-            <div className="w-full min-h-screen lg:h-full bg-transparent p-4 md:p-6 flex items-center justify-center py-8 md:py-6">
+            <div className="relative lg:absolute lg:inset-0 w-full min-h-screen lg:h-full bg-transparent p-4 md:p-6 flex items-center justify-center py-12 md:py-6">
                 <div className="w-full max-w-7xl grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
-                    {/* About Bento - Spans 2 columns on larger screens */}
+                    {/* About Bento */}
                     <BentoBox
                         title="About Me"
-                        className="bg-gray-900/90 backdrop-blur-sm shadow-lg md:col-span-2 text-white border border-gray-700 order-1"
+                        className="relative bg-gray-950 shadow-xl md:col-span-2 text-white border border-white/10 order-1 overflow-hidden"
                     >
-                        <div className="space-y-4">
-                            <p className="text-lg leading-relaxed text-gray-100">
-                                Hey! I&#39;m <span className="font-semibold text-white">Stian Gia Huy Ha</span>, a developer who gets excited about turning ideas into working applications.
+                        {/* Subtle glow accent */}
+                        <div className="absolute top-0 right-0 w-72 h-72 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+                        <div className="relative space-y-3">
+                            <p className="text-base leading-relaxed">
+                                <span className="text-zinc-400">Hey! I&#39;m </span>
+                                <span className="font-medium text-white">
+                                    Stian Gia Huy Ha
+                                </span>
+                                <span className="text-zinc-400">
+                                    , a developer who loves turning ideas into working applications.
+                                </span>
                             </p>
 
-                            <p className="text-base leading-relaxed text-gray-300">
-                                I specialize in full-stack development with{' '}
-                                <span className="text-blue-400 font-medium">Next.js</span>, building user interfaces and learning to develop backend systems with Node.js and PostgreSQL.
+                            <p className="text-base leading-relaxed text-zinc-400">
+                                I build full-stack apps with{' '}
+                                <span className="inline-flex items-center text-white font-semibold bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-md text-sm">
+                                    Next.js
+                                </span>
+                                , crafting interfaces on the front and working with{' '}
+                                <span className="text-zinc-200 font-medium">Node.js</span> and{' '}
+                                <span className="text-zinc-200 font-medium">PostgreSQL</span> on the back.
                             </p>
 
-                            <p className="text-base leading-relaxed text-gray-300">
-                                Currently deepening my skills in data science while looking for opportunities to collaborate on projects that make a real impact.
+                            <p className="text-base leading-relaxed text-zinc-400">
+                                Currently taking a master&#39;s degree in{' '}
+                                <span className="text-zinc-200 font-medium">data science</span>{' '}
+                                and looking to collaborate on projects that make a real impact.
                             </p>
                         </div>
                     </BentoBox>
 
                     {/* Currently Learning */}
-                    <BentoBox title="📚 Currently Learning" className="bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700 order-2">
-                        <ul className="space-y-2">
-                            <li className="text-gray-100 text-sm">
-                                <strong className="text-white">Docker</strong> - Containerization
-                            </li>
-                            <li className="text-gray-100 text-sm">
-                                <strong className="text-white">Fast API</strong> - API development
-                            </li>
-                            <li className="text-gray-100 text-sm">
-                                <strong className="text-white">AWS/Vercel</strong> - Cloud platforms & deployment
-                            </li>
+                    <BentoBox
+                        title="Currently Learning"
+                        className="relative bg-gray-950 shadow-xl border border-white/10 order-2 overflow-hidden"
+                    >
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-600/5 rounded-full blur-3xl pointer-events-none" />
+
+                        <ul className="relative space-y-3">
+                            {[
+                                { name: "Docker", desc: "Containerization" },
+                                { name: "FastAPI", desc: "API development" },
+                                { name: "AWS / Vercel", desc: "Cloud platforms & deployment" },
+                                { name: "SEO", desc: "Search engine optimization" },
+                            ].map(({ name, desc }) => (
+                                <li key={name} className="flex items-start gap-3 group">
+                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 group-hover:bg-blue-400 transition-colors" />
+                                    <span className="text-sm text-zinc-400 leading-snug">
+                                        <strong className="text-white font-semibold">{name}</strong>
+                                        <span className="text-zinc-500"> — </span>
+                                        {desc}
+                                    </span>
+                                </li>
+                            ))}
                         </ul>
                     </BentoBox>
 
-                    {/* Education/Timeline - Right column - Shows before Contact on mobile */}
-                    <BentoBox title="🎓 Journey" className="bg-gray-900/90 backdrop-blur-sm shadow-lg border border-gray-700 order-3 md:order-4">
-                        <div className="space-y-3">
-                            <div className="border-l-4 border-blue-500 pl-3 py-1">
-                                <h3 className="font-bold text-white text-sm">Data science student @ UiB</h3>
-                                <p className="text-gray-400 text-xs mb-1">2023 - Present</p>
-                                <p className="text-gray-200 text-sm">
-                                    Integrated master&#39;s program covering machine learning, mathematics, statistics, software development, networks, and data visualization. Includes industry internship and master&#39;s thesis in data science.
+                    {/* Journey / Education */}
+                    <BentoBox
+                        title="Journey"
+                        className="relative bg-gray-950 shadow-xl border border-white/10 order-3 md:order-4 overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+                        <div className="relative space-y-3">
+                            <div className="relative pl-4 py-1">
+                                {/* Timeline line */}
+                                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-blue-500/0 rounded-full" />
+                                {/* Dot */}
+                                <div className="absolute left-[-3px] top-2 w-2 h-2 rounded-full bg-blue-500 ring-2 ring-blue-500/30" />
+
+                                <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="font-bold text-white text-sm">Data Science Student @ UiB</h3>
+                                </div>
+                                <p className="text-blue-400/80 text-xs font-medium mb-2">2023 — Present</p>
+                                <p className="text-zinc-400 text-sm leading-relaxed">
+                                    Integrated master&#39;s program covering machine learning, mathematics, statistics,
+                                    software development, networks, and data visualization. Includes industry internship
+                                    and master&#39;s thesis in data science.
                                 </p>
                             </div>
                         </div>
                     </BentoBox>
 
-                    {/* Contact Form - Spans full width on mobile, 2 cols on tablet/desktop - Shows after Journey on mobile */}
-                    <BentoBox title="📧 Contact Me" className="bg-gray-900/90 backdrop-blur-sm shadow-lg md:col-span-2 border border-gray-700 order-4 md:order-3">
-                        <form onSubmit={handleSubmit} className="space-y-3">
+                    {/* Contact Form */}
+                    <BentoBox
+                        title="Contact Me"
+                        className="relative bg-gray-950 shadow-xl md:col-span-2 border border-white/10 order-4 md:order-3 overflow-hidden"
+                    >
+                        <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+                        <form onSubmit={handleSubmit} className="relative space-y-3">
                             <div className="grid md:grid-cols-2 gap-3">
                                 <input
                                     type="text"
                                     name="name"
                                     placeholder="Your name"
                                     required
-                                    className="w-full rounded-lg border-2 border-gray-600 bg-gray-800 p-3 text-white text-sm placeholder:text-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all"
                                 />
                                 <input
                                     type="email"
                                     name="email"
                                     placeholder="Your email"
                                     required
-                                    className="w-full rounded-lg border-2 border-gray-600 bg-gray-800 p-3 text-white text-sm placeholder:text-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                    className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all"
                                 />
                             </div>
 
@@ -130,7 +174,7 @@ export default function About() {
                                 placeholder="Your message"
                                 rows={3}
                                 required
-                                className="w-full rounded-lg border-2 border-gray-600 bg-gray-800 p-3 text-white text-sm placeholder:text-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all resize-none"
+                                className="w-full rounded-lg border border-white/10 bg-white/5 p-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all resize-none"
                             />
 
                             <input type="hidden" name="subject" value="New portfolio contact" />
@@ -145,6 +189,7 @@ export default function About() {
                             />
                         </form>
                     </BentoBox>
+
                 </div>
             </div>
 

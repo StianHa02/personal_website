@@ -22,23 +22,23 @@ export default function Home() {
 
             {/* Use CSS media queries with lg: breakpoint (1024px) instead of JS hook */}
             <main className="bg-black-100 scroll-smooth lg:h-screen lg:overflow-y-scroll lg:overflow-x-hidden lg:snap-y lg:snap-mandatory">
-                <section id="hero" className="w-full min-h-screen lg:h-screen lg:snap-start">
+                <section id="hero" className="w-full min-h-screen lg:h-screen lg:snap-start flex items-center justify-center">
                     <Hero />
                 </section>
 
-                <section id="projects" className="w-full lg:h-screen lg:snap-start">
+                <section id="projects" className="w-full lg:h-screen lg:snap-start flex items-center justify-center">
                     <Projects />
                 </section>
 
-                <section id="skills" className="w-full lg:h-screen lg:snap-start">
+                <section id="skills" className="w-full lg:h-screen lg:snap-start flex items-center justify-center">
                     <Skills />
                 </section>
 
-                <section id="about" className="w-full lg:h-screen lg:snap-start">
+                <section id="about" className="w-full lg:h-screen lg:snap-start flex items-center justify-center">
                     <About />
                 </section>
 
-                <section id="footer" className="w-full lg:h-screen lg:snap-start">
+                <section id="footer" className="w-full lg:h-screen lg:snap-start flex items-center justify-center">
                     <Footer />
                 </section>
             </main>

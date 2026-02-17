@@ -9,6 +9,8 @@ export interface InteractiveGridBackgroundProps
   darkGridColor?: string;
   effectColor?: string;
   darkEffectColor?: string;
+  tailColor?: string;
+  darkTailColor?: string;
   trailLength?: number;
   width?: number;
   height?: number;
@@ -18,7 +20,7 @@ export interface InteractiveGridBackgroundProps
   children?: React.ReactNode;
   showFade?: boolean;
   fadeIntensity?: number;
-  idleRandomCount?: number; // ✅ how many random cells move during idle
+  idleRandomCount?: number;
 }
 
 const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
@@ -27,12 +29,14 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
                                                                                darkGridColor = "#27272a",
                                                                                effectColor = "rgba(0, 0, 0, 0.5)",
                                                                                darkEffectColor = "rgba(255, 255, 255, 0.5)",
-                                                                               trailLength = 3,
+                                                                               tailColor = "rgba(0, 0, 0, 0.5)",
+                                                                               darkTailColor = "rgba(255, 255, 255, 0.5)",
+                                                                               trailLength = 10,
                                                                                width,
                                                                                height,
                                                                                idleSpeed = 0.2,
                                                                                glow = true,
-                                                                               glowRadius = 20,
+                                                                               glowRadius = 3,
                                                                                children,
                                                                                showFade = true,
                                                                                fadeIntensity = 20,
@@ -44,63 +48,40 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const trailRef = useRef<{ x: number; y: number }[]>([]);
+  const cellBrightnessRef = useRef<Map<string, number>>(new Map());
+  const mousePosRef = useRef<{ x: number; y: number } | null>(null);
+  const lastMouseTimeRef = useRef(Date.now());
   const idleTargetsRef = useRef<{ x: number; y: number }[]>([]);
-  const idlePositionsRef = useRef<{ x: number; y: number }[]>([]);
-  const mouseActiveRef = useRef(false);
-  const lastMouseTimeRef = useRef(0);
+  const idlePosRef = useRef<{ x: number; y: number }[]>([]);
 
-  // Initialize lastMouseTimeRef
   useEffect(() => {
-    lastMouseTimeRef.current = Date.now();
-  }, []);
-
-  // Detect dark mode
-  useEffect(() => {
-    const updateDarkMode = () => {
-      const prefersDark =
-          window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const update = () => {
       setIsDarkMode(
-          document.documentElement.classList.contains("dark") || prefersDark
+          document.documentElement.classList.contains("dark") ||
+          (window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false)
       );
     };
-    updateDarkMode();
-    const observer = new MutationObserver(() => updateDarkMode());
+    update();
+    const observer = new MutationObserver(update);
     observer.observe(document.documentElement, { attributes: true });
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tracking
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       const container = containerRef.current;
       if (!container) return;
       const rect = container.getBoundingClientRect();
-      const rawX = e.clientX - rect.left;
-      const rawY = e.clientY - rect.top;
-
-      if (rawX < 0 || rawY < 0 || rawX > rect.width || rawY > rect.height)
-        return;
-
-      mouseActiveRef.current = true;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+      mousePosRef.current = { x, y };
       lastMouseTimeRef.current = Date.now();
-
-      const snappedX = Math.floor(rawX / gridSize);
-      const snappedY = Math.floor(rawY / gridSize);
-
-      const last = trailRef.current[0];
-      if (!last || last.x !== snappedX || last.y !== snappedY) {
-        trailRef.current.unshift({ x: snappedX, y: snappedY });
-        if (trailRef.current.length > trailLength) trailRef.current.pop();
-      }
     };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [gridSize, trailLength]);
-
-  // Drawing logic
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -108,152 +89,163 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animFrameId: number;
+    let canvasW = 0;
+    let canvasH = 0;
 
-    const updateCanvasSize = () => {
+    const resize = () => {
       const rect = container.getBoundingClientRect();
-      const canvasWidth = width || rect.width;
-      const canvasHeight = height || rect.height;
-
-      // Only update if size actually changed
-      if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
+      canvasW = width || rect.width;
+      canvasH = height || rect.height;
+      if (canvas.width !== canvasW || canvas.height !== canvasH) {
+        canvas.width = canvasW;
+        canvas.height = canvasH;
       }
-
-      return { canvasWidth, canvasHeight };
     };
 
-    let { canvasWidth, canvasHeight } = updateCanvasSize();
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(container);
 
-    // Watch for container size changes
-    const resizeObserver = new ResizeObserver(() => {
-      const newSize = updateCanvasSize();
-      canvasWidth = newSize.canvasWidth;
-      canvasHeight = newSize.canvasHeight;
-    });
+    const parseColor = (color: string) => {
+      const m = color.match(/[\d.]+/g);
+      if (!m) return { r: 255, g: 255, b: 255 };
+      return { r: Number(m[0]), g: Number(m[1]), b: Number(m[2]) };
+    };
 
-    resizeObserver.observe(container);
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-    const cols = Math.floor(canvasWidth / gridSize);
-    const rows = Math.floor(canvasHeight / gridSize);
-
-    const lineColor = isDarkMode ? darkGridColor : gridColor;
-    const glowColor = isDarkMode ? darkEffectColor : effectColor;
-
-    // Initialize idle positions
-    idleTargetsRef.current = Array.from({ length: idleRandomCount }, () => ({
-      x: Math.floor(Math.random() * cols),
-      y: Math.floor(Math.random() * rows),
-    }));
-    idlePositionsRef.current = idleTargetsRef.current.map((p) => ({ ...p }));
+    // DECAY controls how slow the tail fades — lower = longer tail
+    const DECAY = 0.008;
+    const SPREAD = glowRadius;
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      const lineColor = isDarkMode ? darkGridColor : gridColor;
+      const headColor = parseColor(isDarkMode ? darkEffectColor : effectColor);
+      const tailColorParsed = parseColor(isDarkMode ? darkTailColor : tailColor);
+
+      ctx.clearRect(0, 0, canvasW, canvasH);
 
       // Draw grid lines
       ctx.strokeStyle = lineColor;
       ctx.lineWidth = 1;
-      for (let x = 0; x <= canvasWidth; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvasHeight);
-        ctx.stroke();
+      for (let x = 0; x <= canvasW; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke();
       }
-      for (let y = 0; y <= canvasHeight; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvasWidth, y);
-        ctx.stroke();
+      for (let y = 0; y <= canvasH; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke();
       }
 
-      // Idle animation logic
-      const idleThreshold = 2000;
-      if (Date.now() - lastMouseTimeRef.current > idleThreshold) {
-        mouseActiveRef.current = false;
+      const cols = Math.ceil(canvasW / gridSize);
+      const rows = Math.ceil(canvasH / gridSize);
 
-        idlePositionsRef.current.forEach((pos, i) => {
-          const target = idleTargetsRef.current[i];
-          const dx = target.x - pos.x;
-          const dy = target.y - pos.y;
-
-          if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01) {
-            // new random target when reached
-            idleTargetsRef.current[i] = {
-              x: Math.floor(Math.random() * cols),
-              y: Math.floor(Math.random() * rows),
-            };
-          } else {
-            pos.x += dx * idleSpeed;
-            pos.y += dy * idleSpeed;
-          }
-
-          const roundedX = Math.round(pos.x);
-          const roundedY = Math.round(pos.y);
-          const last = trailRef.current[0];
-          if (!last || last.x !== roundedX || last.y !== roundedY) {
-            trailRef.current.unshift({ x: roundedX, y: roundedY });
-            if (trailRef.current.length > trailLength * idleRandomCount)
-              trailRef.current.pop();
-          }
-        });
-      }
-
-      // Draw trail glow
-      trailRef.current.forEach((cell, idx) => {
-        const alpha = 1 - idx * (1 / (trailLength + 1));
-        const rgbaColor = glowColor.replace(/[\d.]+\)$/g, `${alpha})`);
-
-        ctx.fillStyle = rgbaColor;
-        if (glow) {
-          ctx.shadowColor = rgbaColor;
-          ctx.shadowBlur = glowRadius;
-        } else {
-          ctx.shadowBlur = 0;
+      // DVD bounce idle animation
+      const isIdle = Date.now() - lastMouseTimeRef.current > 2000;
+      if (isIdle && canvasW > 0 && canvasH > 0) {
+        // Initialize DVD position and velocity if not set
+        if (idleTargetsRef.current.length === 0) {
+          idleTargetsRef.current = [{
+            x: Math.random() * canvasW,
+            y: Math.random() * canvasH,
+          }];
+          // Store velocity in idlePosRef as {x: vx, y: vy}
+          const angle = (Math.random() * Math.PI) / 2 + Math.PI / 4;
+          idlePosRef.current = [{
+            x: Math.cos(angle) * idleSpeed * 3,
+            y: Math.sin(angle) * idleSpeed * 3,
+          }];
         }
 
-        ctx.fillRect(cell.x * gridSize, cell.y * gridSize, gridSize, gridSize);
+        const pos = idleTargetsRef.current[0];
+        const vel = idlePosRef.current[0];
+
+        pos.x += vel.x;
+        pos.y += vel.y;
+
+        // Bounce off edges
+        if (pos.x <= 0) { pos.x = 0; vel.x = Math.abs(vel.x); }
+        if (pos.x >= canvasW) { pos.x = canvasW; vel.x = -Math.abs(vel.x); }
+        if (pos.y <= 0) { pos.y = 0; vel.y = Math.abs(vel.y); }
+        if (pos.y >= canvasH) { pos.y = canvasH; vel.y = -Math.abs(vel.y); }
+
+        mousePosRef.current = { x: pos.x, y: pos.y };
+      } else if (!isIdle) {
+        // Reset DVD state when mouse moves again
+        idleTargetsRef.current = [];
+        idlePosRef.current = [];
+      }
+
+      // Light up grid cells near cursor — brightness based on distance
+      const mouse = mousePosRef.current;
+      if (mouse) {
+        const cursorCellX = Math.floor(mouse.x / gridSize);
+        const cursorCellY = Math.floor(mouse.y / gridSize);
+
+        for (let dx = -SPREAD; dx <= SPREAD; dx++) {
+          for (let dy = -SPREAD; dy <= SPREAD; dy++) {
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > SPREAD) continue;
+
+            const cx = cursorCellX + dx;
+            const cy = cursorCellY + dy;
+            if (cx < 0 || cy < 0 || cx >= cols || cy >= rows) continue;
+
+            const brightness = Math.pow(1 - dist / SPREAD, 2);
+            const key = `${cx},${cy}`;
+            const current = cellBrightnessRef.current.get(key) ?? 0;
+            if (brightness > current) {
+              cellBrightnessRef.current.set(key, brightness);
+            }
+          }
+        }
+      }
+
+      // Draw all lit cells and decay
+      const toDelete: string[] = [];
+      cellBrightnessRef.current.forEach((brightness, key) => {
+        const [cx, cy] = key.split(",").map(Number);
+
+        // Interpolate color: bright cells = head color, dim cells = tail color
+        const r = Math.round(lerp(tailColorParsed.r, headColor.r, brightness));
+        const g = Math.round(lerp(tailColorParsed.g, headColor.g, brightness));
+        const b = Math.round(lerp(tailColorParsed.b, headColor.b, brightness));
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = `rgba(${r},${g},${b},${brightness * 0.8})`;
+        ctx.fillRect(cx * gridSize, cy * gridSize, gridSize, gridSize);
+
+        const next = brightness - DECAY;
+        if (next <= 0.005) {
+          toDelete.push(key);
+        } else {
+          cellBrightnessRef.current.set(key, next);
+        }
       });
 
-      animationFrameId = requestAnimationFrame(draw);
+      toDelete.forEach(k => cellBrightnessRef.current.delete(k));
+
+      animFrameId = requestAnimationFrame(draw);
     };
 
     draw();
-
     return () => {
-      resizeObserver.disconnect();
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      ro.disconnect();
+      cancelAnimationFrame(animFrameId);
     };
-  }, [
-    gridSize,
-    width,
-    height,
-    gridColor,
-    darkGridColor,
-    effectColor,
-    darkEffectColor,
-    isDarkMode,
-    trailLength,
-    idleSpeed,
-    glow,
-    glowRadius,
-    idleRandomCount,
-  ]);
+  }, [isDarkMode, gridSize, gridColor, darkGridColor, effectColor, darkEffectColor,
+    tailColor, darkTailColor, width, height, glow, glowRadius, idleSpeed, idleRandomCount, trailLength]);
 
   return (
       <div
           ref={containerRef}
           className={`relative ${className}`}
-          style={{ width: width || "100%" }}
+          style={{ width: width || "100%", height: height || "100%" }}
           {...props}
       >
         <canvas
             ref={canvasRef}
             className="absolute top-0 left-0 z-0 pointer-events-none w-full h-full"
         />
-
         {showFade && (
             <div
                 className="pointer-events-none absolute inset-0 bg-white dark:bg-black"

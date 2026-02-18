@@ -52,7 +52,7 @@ function Hero() {
                         {["Next.js", "TypeScript", "Tailwind CSS", "Vercel"].map((tech) => (
                             <span
                                 key={tech}
-                                className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-sm font-medium text-zinc-300 hover:border-white/20 hover:text-white transition-all"
+                                className="px-3 py-1.5 bg-black/60 dark:bg-white/20 border border-white/20 rounded-lg text-sm font-medium text-white hover:border-white/30 hover:bg-black/70 dark:hover:bg-white/30 transition-all"
                             >
                                 {tech}
                             </span>

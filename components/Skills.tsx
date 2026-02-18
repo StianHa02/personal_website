@@ -1,6 +1,6 @@
 "use client";
 
-import { BentoBox, InteractiveGridBackground } from "@/components/ui";
+import { BentoBox } from "@/components/ui";
 
 interface Skill {
     name: string;
@@ -86,16 +86,29 @@ export default function Skills() {
     };
 
     return (
-        <InteractiveGridBackground
-            gridSize={50}
-            showFade={true}
-            fadeIntensity={20}
-            glow={false}
-            trailLength={0}
-            idleRandomCount={0}
-            className="relative w-full h-full"
-            darkEffectColor="rgba(255,0,255,0.5)"
-        >
+        <div className="relative w-full h-full bg-[#000319] dark:bg-black">
+            {/* Static Grid Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(to right, #1f2937 1px, transparent 1px),
+                            linear-gradient(to bottom, #1f2937 1px, transparent 1px)
+                        `,
+                        backgroundSize: '50px 50px',
+                    }}
+                />
+                {/* Radial Shadow/Fade */}
+                <div
+                    className="absolute inset-0 bg-[#000319] dark:bg-black"
+                    style={{
+                        maskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                    }}
+                />
+            </div>
+
             <div className="relative lg:absolute lg:inset-0 flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-8 lg:overflow-y-auto">
                 <div className="w-full max-w-7xl mx-auto">
 
@@ -158,6 +171,6 @@ export default function Skills() {
 
                 </div>
             </div>
-        </InteractiveGridBackground>
+        </div>
     );
 }

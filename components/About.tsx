@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BentoBox, InteractiveGridBackground, Toast, HeroButton } from "@/components/ui";
+import { BentoBox, Toast, HeroButton } from "@/components/ui";
 import { FaPaperPlane } from "react-icons/fa";
 
 type ToastType = "success" | "error" | "info";
@@ -41,16 +41,29 @@ export default function About() {
     };
 
     return (
-        <InteractiveGridBackground
-            gridSize={50}
-            showFade={true}
-            fadeIntensity={20}
-            glow={false}
-            trailLength={0}
-            idleRandomCount={0}
-            className="w-full min-h-screen lg:h-full"
-            darkEffectColor="rgba(255,0,255,0.5)"
-        >
+        <div className="relative w-full min-h-screen lg:h-full bg-[#000319] dark:bg-black">
+            {/* Static Grid Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(to right, #1f2937 1px, transparent 1px),
+                            linear-gradient(to bottom, #1f2937 1px, transparent 1px)
+                        `,
+                        backgroundSize: '50px 50px',
+                    }}
+                />
+                {/* Radial Shadow/Fade */}
+                <div
+                    className="absolute inset-0 bg-[#000319] dark:bg-black"
+                    style={{
+                        maskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                    }}
+                />
+            </div>
+
             <div className="relative lg:absolute lg:inset-0 w-full min-h-screen lg:h-full bg-transparent p-4 md:p-6 flex items-center justify-center py-12 md:py-6">
                 <div className="w-full max-w-7xl grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
@@ -200,6 +213,6 @@ export default function About() {
                     onClose={() => setToast(null)}
                 />
             )}
-        </InteractiveGridBackground>
+        </div>
     );
 }

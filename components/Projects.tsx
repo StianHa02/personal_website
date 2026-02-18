@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BentoBox, InteractiveGridBackground } from "@/components/ui";
+import { BentoBox } from "@/components/ui";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 interface Project {
@@ -21,7 +21,7 @@ export default function Projects() {
     const projects: Project[] = [
         {
             title: "Personal Portfolio Website",
-            description: "Modern, interactive portfolio featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js, TypeScript and deployed on Vercel.",
+            description: "Modern, interactive and reactive portfolio webiste featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js, TypeScript and deployed on Vercel.",
             techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "Aceternity UI"],
             category: "frontend",
             featured: true,
@@ -60,16 +60,29 @@ export default function Projects() {
     ];
 
     return (
-        <InteractiveGridBackground
-            gridSize={50}
-            showFade={true}
-            fadeIntensity={20}
-            glow={false}
-            trailLength={0}
-            idleRandomCount={0}
-            className="relative w-full h-full"
-            darkEffectColor="rgba(255,0,255,0.5)"
-        >
+        <div className="relative w-full h-full bg-[#000319] dark:bg-black">
+            {/* Static Grid Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `
+                            linear-gradient(to right, #1f2937 1px, transparent 1px),
+                            linear-gradient(to bottom, #1f2937 1px, transparent 1px)
+                        `,
+                        backgroundSize: '50px 50px',
+                    }}
+                />
+                {/* Radial Shadow/Fade */}
+                <div
+                    className="absolute inset-0 bg-[#000319] dark:bg-black"
+                    style={{
+                        maskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                        WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black)',
+                    }}
+                />
+            </div>
+
             <div className="relative lg:absolute lg:inset-0 flex flex-col items-center justify-center px-4 md:px-6 py-12 md:py-8 lg:overflow-y-auto">
                 <div className="w-full max-w-7xl mx-auto">
 
@@ -88,8 +101,8 @@ export default function Projects() {
                                     onClick={() => setFilter(btn.value as typeof filter)}
                                     className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer border ${
                                         filter === btn.value
-                                            ? "bg-blue-500/10 text-blue-300 border-blue-500/30"
-                                            : "bg-white/5 text-zinc-400 border-white/10 hover:border-white/20 hover:text-zinc-200"
+                                            ? "bg-blue-500/20 text-blue-200 border-blue-500/40"
+                                            : "bg-black/50 dark:bg-white/15 text-white border-white/20 hover:border-white/30 hover:bg-black/60 dark:hover:bg-white/20"
                                     }`}
                                 >
                                     {btn.label}
@@ -114,7 +127,7 @@ export default function Projects() {
                     )}
                 </div>
             </div>
-        </InteractiveGridBackground>
+        </div>
     );
 }
 

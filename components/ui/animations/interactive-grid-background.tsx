@@ -148,11 +148,15 @@ const InteractiveGridBackground: React.FC<InteractiveGridBackgroundProps> = ({
             x: Math.random() * canvasW,
             y: Math.random() * canvasH,
           }];
-          // Store velocity in idlePosRef as {x: vx, y: vy}
-          const angle = (Math.random() * Math.PI) / 2 + Math.PI / 4;
+          // DVD screensaver uses perfectly diagonal movement (equal X and Y speeds)
+          // This creates a 45-degree angle movement
+          const speed = idleSpeed * 3;
+          // Randomly choose direction: 1 or -1 for each axis
+          const dirX = Math.random() < 0.5 ? 1 : -1;
+          const dirY = Math.random() < 0.5 ? 1 : -1;
           idlePosRef.current = [{
-            x: Math.cos(angle) * idleSpeed * 3,
-            y: Math.sin(angle) * idleSpeed * 3,
+            x: speed * dirX,
+            y: speed * dirY,
           }];
         }
 

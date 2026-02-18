@@ -21,7 +21,7 @@ export default function Projects() {
     const projects: Project[] = [
         {
             title: "Personal Portfolio Website",
-            description: "Modern, interactive and reactive portfolio webiste featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js, TypeScript and deployed on Vercel.",
+            description: "Modern and interactive portfolio website featuring animated grid backgrounds, bento layouts, toast notifications, and smooth transitions. Built with Next.js, TypeScript and deployed on Vercel.",
             techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "Aceternity UI"],
             category: "frontend",
             featured: true,

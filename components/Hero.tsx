@@ -17,7 +17,7 @@ function Hero() {
                     showFade
                     fadeIntensity={25}
                     className="h-full w-full"
-                    idleSpeed={1.5}
+                    idleSpeed={0.7}
                     effectColor="rgba(0, 255, 255, 0.9)"      // head color (cyan)
                     darkEffectColor="rgba(255, 0, 255, 0.9)"   // head color in dark mode (magenta)
                     tailColor="rgba(0, 100, 255, 0.9)"         // tail fades to this (blue)

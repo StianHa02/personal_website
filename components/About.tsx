@@ -91,14 +91,13 @@ export default function About() {
                                 <span className="inline-flex items-center text-white font-semibold bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 rounded-md text-sm">
                                     Next.js
                                 </span>
-                                , crafting interfaces on the front and working with{' '}
-                                <span className="text-zinc-200 font-medium">Node.js</span> and{' '}
-                                <span className="text-zinc-200 font-medium">PostgreSQL</span> on the back.
+                                , crafting interfaces on the front and working with Node.js and PostgreSQL on the back.
+
+
                             </p>
 
                             <p className="text-base leading-relaxed text-zinc-400">
-                                Currently taking a master&#39;s degree in{' '}
-                                <span className="text-zinc-200 font-medium">data science</span>{' '}
+                                Currently taking a master&#39;s degree in Data Science
                                 and looking to collaborate on projects that make a real impact.
                             </p>
                         </div>
@@ -132,7 +131,7 @@ export default function About() {
 
                     {/* Journey / Education */}
                     <BentoBox
-                        title="Journey"
+                        title="Academic Journey"
                         className="relative bg-gray-950 shadow-xl border border-white/10 order-3 md:order-4 overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
